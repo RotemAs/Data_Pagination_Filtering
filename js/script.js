@@ -120,18 +120,13 @@ function searchByName(inputValue, students) {
       //if the search input matches to one of the name of current student, adding current student to new array
       newStudents.push(currentStudent);
       addPagination(newStudents);
+    }else{
+       let errorMessage = 'No results found'
+       document.querySelector(".no-res-message").innerHTML = errorMessage
+       document.querySelector(".pagination").innerHTML = ''
+      
     }
-    //here my programm for the error message if there's no match(Not Working)
-    if (
-      !currentStudent.name.first
-        .toLowerCase()
-        .includes(inputValue.toLowerCase()) ||
-      !currentStudent.name.last.toLowerCase().includes(inputValue.toLowerCase())
-    ) {
-      let errorMessage = document.createElement("h2");
-      errorMessage.innerHTML = `No Match`;
-      ULStudentList.append(errorMessage);
-    }
+   
   }
   showPage(newStudents, 1);
 }
