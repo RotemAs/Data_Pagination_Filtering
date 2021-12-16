@@ -33,6 +33,7 @@ Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 function showPage(list, page) {
+  
   //declare start and end index
   let startIndex = page * studentsPerPage - studentsPerPage;
   let endIndex = page * studentsPerPage;
@@ -65,6 +66,8 @@ function showPage(list, page) {
       ULStudentList.append(li);
     }
   }
+    show('.pagination')
+  show('.student-list')
 }
 
 /*
@@ -109,6 +112,7 @@ function addPagination(list) {
 
 function searchByName(inputValue, students) {
   //set new empty array
+  let testCounte = 0
   let newStudents = [];
   for (let i = 0; i < students.length; i++) {
     //set current student variable to hold the current student iteration
@@ -120,15 +124,23 @@ function searchByName(inputValue, students) {
       //if the search input matches to one of the name of current student, adding current student to new array
       newStudents.push(currentStudent);
       addPagination(newStudents);
-    }else{
-       let errorMessage = 'No results found'
-       document.querySelector(".no-res-message").innerHTML = errorMessage
-       document.querySelector(".pagination").innerHTML = ''
+      document.querySelector(".no-res-message").innerHTML = ''
+      testCounte++
       
     }
-   
+
+}
+console.log('newStudents.length',newStudents.length)
+if(newStudents.length === 0){
+
+    let errorMessage = 'No results found'
+    document.querySelector(".no-res-message").innerHTML = errorMessage
+    // document.querySelector(".link-list").innerHTML = ''
+    hide('.pagination');
+    hide('.student-list');
+  }else{
+    showPage(newStudents, 1);
   }
-  showPage(newStudents, 1);
 }
 
 let searchStr = "";
@@ -151,3 +163,10 @@ console.log('btnSearch secund',btnSearch)
 showPage(data, 1);
 
 addPagination(data);
+
+function hide(selector) {
+  document.querySelector(selector).classList.add('hide')
+}
+function show(selector) {
+  document.querySelector(selector).classList.remove('hide')
+}
